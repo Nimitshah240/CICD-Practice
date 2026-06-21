@@ -2,13 +2,21 @@ pipeline {
 
     agent any
 
+    tools {
+
+        jdk 'JDK21'
+        maven 'Maven3'
+
+    }
+
     stages {
 
-        stage('Hello') {
+        stage('Verify') {
 
             steps {
 
-                echo 'My First Pipeline'
+                sh 'java -version'
+                sh 'mvn -version'
 
             }
 
