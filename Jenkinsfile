@@ -11,12 +11,11 @@ pipeline {
 
     stages {
 
-        stage('Verify') {
+        stage('Build') {
 
             steps {
 
-                sh 'java -version'
-                sh 'mvn -version'
+                sh 'mvn clean package -DskipTests'
 
             }
 
