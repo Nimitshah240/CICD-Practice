@@ -37,7 +37,7 @@ pipeline {
 
                 docker run -d \
                   --name demo-api \
-                  -p 8081:8080 \
+                  -p 8081:8082 \
                   demo-api:latest
                 '''
             }
