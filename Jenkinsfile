@@ -54,6 +54,26 @@ pipeline {
                 """
             }
         }
+    }
 
+    post {
+
+        success {
+
+            echo 'Build Successful'
+
+            sh """
+                cp target/*.jar \
+                /artifacts/demo-api-${BUILD_NUMBER}.jar
+            """
+        }
+
+        failure {
+            echo 'Build Failed'
+        }
+
+        always {
+            echo 'Pipeline Finished'
+        }
     }
 }
