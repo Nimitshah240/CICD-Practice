@@ -6,6 +6,18 @@ pipeline {
         jdk 'JDK21'
         maven 'Maven3'
     }
+    parameters {
+            choice (
+                name: 'ENVIRONMENT',
+                choices: ['DEV', 'QA', 'PROD'],
+                description: 'Select Deployment Environment'
+            )
+    }
+    environment {
+        APP_NAME = 'demo-api'
+        HOST_PORT = credentials('port')
+        CONTAINER_PORT = credentials('port')
+    }
 
     stages {
 
@@ -32,14 +44,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
+                sh """
                 docker rm -f demo-api || true
 
                 docker run -d \
                   --name demo-api \
-                  -p 8081:8082 \
+                  -p ${HOST_PORT}:${CONTAINER_PORT} \
                   demo-api:latest
-                '''
+                """
             }
         }
 
